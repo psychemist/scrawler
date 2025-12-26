@@ -164,7 +164,6 @@ class ZKBookCrawler:
         # Create Index (README.md)
         with open(os.path.join(self.output_dir, "README.md"), "w") as f:
             f.write("# The RareSkills Book of Zero Knowledge\n\n")
-            f.write(f"Scraped from [{self.toc_url}]({self.toc_url})\n\n")
             
             current_module = None
             for idx, chapter in enumerate(chapters):
@@ -178,8 +177,10 @@ class ZKBookCrawler:
                 safe_title = re.sub(r'_+', '_', safe_title).strip('_')
                 filename = f"{idx+1:02d}_{safe_title}.md"
                 chapter['filename'] = filename
-                
+
                 f.write(f"- [{chapter['title']}]({filename})\n")
+
+            f.write(f"Scraped from [{self.toc_url}]({self.toc_url})\n\n")
 
         # Process Chapters
         for i, chapter in enumerate(chapters):
